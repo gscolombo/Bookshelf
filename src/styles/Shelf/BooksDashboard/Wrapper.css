@@ -1,0 +1,27 @@
+.books-dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, fit-content(100%)) 1fr;
+    flex-grow: 1;
+    align-self: flex-start;
+    min-height: calc(100vh - 50px - 3.5rem);
+}
+
+.books-dashboard header {
+    display: flex;
+    align-items: center;
+    grid-column: 1 / 4;
+}
+
+.books-dashboard header h2 {
+    color: black;
+    font-family: var(--main-font);
+    font-size: 3rem;
+}
+
+.books-dashboard-menu {
+    display: flex;
+    grid-column: 1 / 4;
+    margin-top: 10px;
+    align-items: center;
+}

@@ -1,0 +1,18 @@
+.shelf-list {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid black;
+    min-height: calc(100vh - 50px - 3.5rem);
+    padding-right: 20px;
+}
+
+.shelf-list header {
+    display: flex;
+    align-items: center;
+}
+
+.shelf-list header h2 {
+    color: black;
+    font-size: 2.25rem;
+    font-family: var(--main-font);
+}

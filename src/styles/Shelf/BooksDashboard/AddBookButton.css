@@ -1,0 +1,24 @@
+.add-book {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    max-width: fit-content;
+    padding: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: all 0.25s;
+    border: 2px solid white;
+}
+
+.add-book span {
+    font-size: 1.75rem;
+    font-family: var(--sec-font);
+    color: white;
+}
+
+.add-book:hover {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px black;
+    border-radius: 0;
+}

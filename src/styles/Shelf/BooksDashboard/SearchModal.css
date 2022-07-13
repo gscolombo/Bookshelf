@@ -1,0 +1,309 @@
+.search-modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.search-modal {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 5px;
+    background: white;
+    padding: 1rem;
+    animation: show 0.3s;
+    min-width: 50vw;
+    min-height: 90vh;
+}
+
+.search-modal header {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr fit-content(100%) 1fr;
+}
+
+.search-modal header .header-title {
+    grid-column: 2 / 3;
+}
+
+.search-modal header button {
+    background: none;
+    border: 1px solid white;
+    width: fit-content;
+    padding: 0;
+    display: flex;
+    position: relative;
+    bottom: 2rem;
+    left: 0.75rem;
+    transition: all 0.25s;
+    animation: none;
+    justify-self: end;
+}
+
+.search-modal header button:hover {
+    background: none;
+    border: 1px solid black;
+}
+
+.search-modal header button img {
+    display: inline-block;
+}
+
+.search-modal h2 {
+    grid-column: 1 / 3;
+    font-family: var(--main-font);
+    color: black;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.search-modal .subtitle {
+    color: black;
+    font-family: var(--sec-font);
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.search-modal label,
+.search-modal input,
+.search-modal button {
+    color: black;
+    font-family: var(--sec-font);
+}
+
+.search-modal .query-form {
+    display: flex;
+    flex-direction: column;
+    grid-column: 1 / 3;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid black;
+    transition: all 0.2s;
+}
+
+.query-form p {
+    color: black;
+    margin-top: 2rem;
+    font-size: 2rem;
+    font-family: var(--main-font);
+    text-align: center;
+}
+
+.query-form .filter-selection {
+    display: flex;
+    gap: 1rem;
+    align-self: center;
+}
+
+.filter-selection input {
+    display: none;
+}
+
+.filter-selection label {
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-selection label:hover,
+.search-modal button:hover,
+.filter-selection input:checked+label  {
+    background-color: black;
+    color: white;
+}
+
+.search-modal .search-field {
+    border: 1px solid black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    animation: FadeIndropDown 0.25s;
+    min-width: 100%;
+    margin: 1rem 0;
+    font-family: var(--sec-font);
+}
+
+.search-modal button {
+    font-family: var(--main-font);
+    font-size: 1.5rem;
+    border: 2px solid black;
+    width: 25%;
+    padding: 10px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    animation: FadeIndropDown 0.25s;
+    align-self: center;
+}
+
+.query-results {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.query-results .book-list {
+    display: grid;
+    grid-template-columns: repeat(5, calc(20% - 10px));
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.query-results p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.query-results p:first-child {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: black;
+    font-family: var(--sec-font);
+}
+
+.query-results .book-list li {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    height: 200px;
+    cursor: pointer;
+}
+
+.query-results .book-list li p {
+    color: black;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: var(--sec-font);
+    line-height: 1.25rem;
+}
+
+.query-results .book-list li img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.book-info-modal.inactive,
+.search-modal.unshow {
+    animation: hide 0.25s forwards;
+}
+
+.book-info-modal-container.inactive,
+.search-modal-container.unshow {
+    animation: UnblurOut 0.375s;
+    animation-delay: 0.125s;
+}
+
+.book-info-modal-container {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    animation: BlurIn 0.25s forwards;
+    background: transparent;
+    backdrop-filter: blur(2px);
+    z-index: 2;
+}
+
+.book-info-modal {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 2px solid white;
+    background: rgba(0, 0, 0, 0.95);
+    border-radius: 5px;
+    gap: 5px;
+    animation: show 0.25s;
+    width: clamp(560px, 37.5%, 720px);
+    max-height: 50vh;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.book-info-modal header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
+}
+
+.book-info-modal header .text-info-book-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.book-info-modal header .book-authors {
+    display: flex;
+    gap: 5px;
+}
+
+.book-info-modal header button {
+    align-self: flex-start;
+    padding: 0;
+    animation: none;
+    width: fit-content;
+    position: relative;
+    left: 1rem;
+    bottom: 1rem;
+}
+
+
+.book-info-modal header button img {
+    display: inline-block;
+}
+
+.book-info-modal h3 {
+    font-size: 1.5rem;
+    font-family: var(--main-font);
+}
+
+.book-info-modal p {
+    font-family: var(--sec-font);
+}
+
+.book-info-modal .book-authors p {
+    font-style: italic;
+    color: white;
+    margin: 0;
+}
+
+.book-info-modal .description {
+    overflow-y: scroll;
+    padding-right: 10px;
+    margin: 10px 0;
+    height: clamp(50px, 100px, 250px);
+    scrollbar-width: thin;
+    scrollbar-color: white;
+}
+
+.book-info-modal a {
+    padding: 10px;
+    background: white;
+    color: black;
+    width: fit-content;
+    border-radius: 5px;
+    text-decoration: none;
+    font-family: var(--sec-font);
+    margin-top: 10px;
+}
