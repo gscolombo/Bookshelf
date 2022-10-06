@@ -15,7 +15,8 @@ export default function SearchModal({ setSearchModal }) {
   const [books, setBooks] = useState([]);
   const [index, setIndex] = useState(0);
   const [detailsModal, setDetailsModal] = useState(null);
-  const { get, loading, setLoading, response, errors, setErrors } = useFetch();
+  const { get, post, loading, setLoading, response, errors, setErrors } =
+    useFetch();
   const modal = useRef();
 
   useEffect(() => {
@@ -56,6 +57,26 @@ export default function SearchModal({ setSearchModal }) {
     setLoading(true);
     await get(googleBooksURL);
     setIndex(0);
+  }
+
+  async function addBook({ title, authors, publisher, pageCount }) {
+    let authorSearchQuery = "";
+    authors.forEach((author, i, arr) => {
+      author = author.replace(/\s+/g, "+");
+      if (i === arr.length - 1) {
+        authorSearchQuery += author;
+        return 0;
+      }
+      authorSearchQuery += `${author},`;
+    });
+    await get(
+      `http://www.localhost:81/api/authors/search?name=${authorSearchQuery}`
+    );
+    if (!response.authors) {
+      // Adiciona todos os autores
+    } else {
+      // Adiciona somente os autores não registrados
+    }
   }
 
   function showDetails(book) {
@@ -104,9 +125,18 @@ export default function SearchModal({ setSearchModal }) {
             N<sup>&ordm;</sup> de páginas:{" "}
             <b>{pageCount > 0 ? pageCount : "Não informado"}</b>
           </p>
-          <a href={infoLink} target="_blank" rel="noreferrer">
-            Mais informações
-          </a>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <a href={infoLink} target="_blank" rel="noreferrer">
+              Mais informações
+            </a>
+            <button onClick={() => addBook(book)}>Adicionar livro</button>
+          </div>
         </div>
       </div>
     );

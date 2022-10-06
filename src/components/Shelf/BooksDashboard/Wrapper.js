@@ -1,12 +1,13 @@
-import books from "../../../img/books.svg";
-import "../../../styles/Shelf/BooksDashboard/Wrapper.css";
-import AddBookButton from "./AddBookButton";
-import ToggleViewModeButtons from "./ToggleViewModeButtons";
-import Pagination from "./Pagination";
-import SearchField from "./SearchField";
-import Books from "./Books";
+import books from '../../../img/books.svg';
+import '../../../styles/Shelf/BooksDashboard/Wrapper.css';
 
-export default function Wrapper({ credentials }) {
+import AddBookButton from './AddBookButton';
+import ToggleViewModeButtons from './ToggleViewModeButtons';
+import Pagination from './Pagination';
+import SearchField from './SearchField';
+import Books from './Books';
+
+export default function Wrapper() {
   return (
     <div className="books-dashboard">
       <header>
@@ -19,7 +20,7 @@ export default function Wrapper({ credentials }) {
         {/* <Pagination /> */}
         <SearchField />
       </section>
-      <Books credentials={credentials} />
+      <Books />
     </div>
   );
 }

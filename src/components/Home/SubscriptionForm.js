@@ -19,16 +19,18 @@ export default function SubscriptionForm({
   useEffect(() => {
     const msg = response.message;
 
-    if (msg === "User already registered") {
-      setErrors((obj) => ({ ...obj, email: "E-mail já cadastrado" }));
-    }
+    if (msg) {
+      if (msg === "User already registered") {
+        setErrors((obj) => ({ ...obj, email: "E-mail já cadastrado" }));
+      }
 
-    if (msg.startsWith("Error")) {
-      setErrors((obj) => ({
-        ...obj,
-        email:
-          "Ocorreu um erro ao finalizar o cadastro. \n Por favor, entre em contato com contact.bookshelf.app@gmail.com",
-      }));
+      if (msg.startsWith("Error") || msg === "User registration failed!") {
+        setErrors((obj) => ({
+          ...obj,
+          serverError:
+            "Ocorreu um erro ao finalizar o cadastro. \n Por favor, entre em contato com contact.bookshelf.app@gmail.com",
+        }));
+      }
     }
   }, [response, setErrors]);
 
@@ -90,7 +92,7 @@ export default function SubscriptionForm({
       };
 
       setLoading(true);
-      post("http://localhost:80/api/users/register", body);
+      post("http://localhost:81/api/users/register", body);
     }
   }
 

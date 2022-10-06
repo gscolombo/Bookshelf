@@ -1,57 +1,47 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function useFetch() {
   const [response, setResponse] = useState({});
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  async function request(url, options) {
-    const res = await fetch(url, options);
+  async function request(url, options = {}) {
+    const res = await fetch(url, { ...options, credentials: 'include' });
     const json = await res.json();
-    setResponse(json);
+    setResponse({ ...json, status: res.status });
   }
 
-  async function get(url, token = "", publicKey = "") {
-    let options = {};
-    if (token && publicKey) {
-      options = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "X-PubKey": publicKey.replace(/(\n)/gm, "\\n"),
-        },
-      };
-    }
-
-    await request(url, options);
+  function get(url) {
+    request(url);
   }
 
-  async function post(url, body) {
+  function post(url, body) {
     const options = {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json, charset=utf-8;",
+        'Content-Type': 'application/json, charset=utf-8;',
       },
       body: JSON.stringify(body),
     };
     request(url, options);
   }
 
-  async function put(url, body) {
+  function put(url, body) {
     const options = {
-      method: "PUT",
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json, charset=utf-8;",
+        'Content-Type': 'application/json, charset=utf-8;',
       },
       body: JSON.stringify(body),
     };
     request(url, options);
   }
 
-  async function del(url) {
+  function del(url) {
     const options = {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Access-Control-Request-Method": "DELETE",
+        'Access-Control-Request-Method': 'DELETE',
       },
     };
     request(url, options);

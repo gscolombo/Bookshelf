@@ -1,35 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import useFetch from "../../hooks/useFetch.js";
-import LoginForm from "./LoginForm.js";
-import SubscriptionForm from "./SubscriptionForm.js";
-import LoadingModal from "../LoadingModal.js";
-import ForgotPasswordForm from "./ForgotPasswordForm.js";
-import "../../styles/Home/Home.css";
+import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch.js';
+import LoginForm from './LoginForm.js';
+import SubscriptionForm from './SubscriptionForm.js';
+import LoadingModal from '../LoadingModal.js';
+import ForgotPasswordForm from './ForgotPasswordForm.js';
+import '../../styles/Home/Home.css';
 
-export default function Home({ setStorage, setUserName, userName }) {
-  const [form, setForm] = useState("login");
+export default function Home({ setUserName, userName }) {
+  const [form, setForm] = useState('login');
   const [timeoutStatus, setTimeoutStatus] = useState(false);
   const { loading, setLoading, post, response, setErrors, errors } = useFetch();
-
-  useEffect(() => {
-    setStorage("delete", "jwt");
-    setStorage("delete", "publicKey");
-  }, []);
 
   useEffect(() => {
     setLoading(false);
   }, [response, setLoading]);
 
   useEffect(() => {
-    const isAuthUser = response.jwt && response.publicKey && response.userName;
-    if (isAuthUser) {
-      setStorage("add", "jwt", response.jwt);
-      setStorage("add", "publicKey", response.publicKey);
-      setUserName(response.userName);
-    }
-  }, [response, setStorage, setUserName]);
+    const isAuthUser = response.status === 200 || response.status === 201;
+    if (isAuthUser) setUserName(response.userName);
+  }, [response, setUserName]);
 
   useEffect(() => {
     setErrors({});
@@ -37,7 +28,7 @@ export default function Home({ setStorage, setUserName, userName }) {
 
   function switchForm(type) {
     switch (type) {
-      case "login":
+      case 'login':
       default:
         return (
           <LoginForm
@@ -50,7 +41,7 @@ export default function Home({ setStorage, setUserName, userName }) {
             userName={userName}
           />
         );
-      case "subscription":
+      case 'subscription':
         return (
           <SubscriptionForm
             setLoading={setLoading}
@@ -62,7 +53,7 @@ export default function Home({ setStorage, setUserName, userName }) {
             userName={userName}
           />
         );
-      case "forgotPassword":
+      case 'forgotPassword':
         return (
           <ForgotPasswordForm
             setForm={setForm}
@@ -77,7 +68,7 @@ export default function Home({ setStorage, setUserName, userName }) {
   }
 
   return (
-    <div className={`container ${userName && "out"}`}>
+    <div className={`container ${userName && 'out'}`}>
       {loading && <LoadingModal message="Por favor, aguarde..." />}
       <h1 className="title">Bookshelf</h1>
       <div className="form-container">{switchForm(form)}</div>

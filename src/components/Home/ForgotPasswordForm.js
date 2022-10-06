@@ -51,7 +51,7 @@ export default function ForgotPasswordForm({
       };
 
       setLoading(true);
-      post("http://localhost:80/api/users/forgot_password", body);
+      post("http://localhost:81/api/users/forgot_password", body);
     }
   }
 
